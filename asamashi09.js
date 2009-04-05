@@ -1,12 +1,11 @@
+// 設定
 var config = {
   asin:         '4774134902',
   associate_id: 'hail2unet-22',
   template_url: 'http://labs.hail2u.net/amazon/asamashi/template.js'
 };
 
-var url = 'http://pipes.yahoo.com/pipes/pipe.run?_callback=?';
-var buf = [];
-
+// 初期化
 function init() {
   $('#searchForm').submit(function () {
     setHash();
@@ -25,6 +24,7 @@ function init() {
   showStatus('初期化が完了しました。');
 }
 
+// ハッシュをセット
 function setHash() {
   showStatus('ハッシュをセットしています･･･');
 
@@ -39,6 +39,7 @@ function setHash() {
   checkForm();
 }
 
+// フォームのチェック
 function checkForm() {
   showStatus('フォームの入力内容をチェックしています･･･');
 
@@ -61,6 +62,7 @@ function checkForm() {
   }
 }
 
+// テンプレートの読み込み
 function loadTemplate() {
   showStatus('テンプレートを読み込んでいます･･･');
 
@@ -69,10 +71,11 @@ function loadTemplate() {
   doSearch(template);
 }
 
+// 検索の実行
 function doSearch(template) {
   showStatus('指定したASINコードを検索しています･･･');
 
-  $.getJSON(url, {
+  $.getJSON('http://pipes.yahoo.com/pipes/pipe.run?_callback=?', {
     _id:         '23c68494a774b6c65665eacebfaf971b',
     _render:     'json',
     asin:        $('#asinCode').val(),
@@ -83,7 +86,7 @@ function doSearch(template) {
     if (res.Items.Request.Errors) {
       showError([
         res.Items.Request.Errors.Error.Code,
-        res.Items.Request.Errors.Error.Message,
+        res.Items.Request.Errors.Error.Message
         ].join(': '));
     } else {
       var item = res.Items.Item;
@@ -125,6 +128,7 @@ function doSearch(template) {
   });
 }
 
+// 入力されたアソシエイトIDとテンプレートURLを元にブックマークレット作成
 function createBookmarklet() {
   var bookmarklet = 'javascript:(function(){location.href=\'http://labs.hail2u.net/amazon/asamashi/#\'+location.href.replace(/^.*\/dp\/(.*?)\/.*$/,\'$1\')+\':hail2unet-22:http://hail2u.net/scripts/asamashi/img.js\'})();'; // dummy
 
