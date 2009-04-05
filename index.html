@@ -7,35 +7,7 @@
 
 <title>Asamashi09</title>
 
-<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/fonts/fonts-min.css" />
-<style type="text/css">
-body, input {
-  font-family: 'Lucida Grande', 'Lucida Sans', sans-serif;
-}
-
-#header {
-  border-bottom: 1px dotted #000000;
-}
-
-label {
-  display: block;
-  width: 10em;
-  float: left;
-  clear: left;
-}
-
-input.button {
-  margin-left: 10em;
-}
-
-#license {
-  border-top: 1px dotted #000000;
-}
-
-#footer {
-  border-top: 1px dotted #000000;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="./style.css" />
 
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript">
@@ -49,6 +21,10 @@ google.load("jquery", "1.3.2");
 </div>
 
 <div id="contents">
+  <div id="message">
+    <p>ASINコード・アソシエイトID・テンプレートURLを入力し、<em>コード取得ボタン</em>または<em><kbd>Enter</kbd></em>を押してください。</p>
+  </div>
+
   <form id="searchForm">
     <p>
       <label for="asinCode">ASINコード:</label>
@@ -63,15 +39,19 @@ google.load("jquery", "1.3.2");
       <input type="text" name="templateUrl" value="http://labs.hail2u.net/amazon/asamashi/template.js" size="48" id="templateUrl" />
     </p>
     <p>
-      <input type="submit" value="jQap!" class="button" />
+      <input type="submit" value="コード取得" class="button" />
     </p>
   </form>
 
-  <div id="message">
-    <p>ASINコード・アソシエイトID・テンプレートURLを入力し、<em>jQap!ボタン</em>または<em><kbd>Enter</kbd></em>を押してください。</p>
-  </div>
-
   <div id="result"></div>
+
+  <hr />
+
+  <div id="about">
+    <h2>About</h2>
+
+    <p>(後で書く)</p>
+  </div>
 
   <div id="license">
     <h2>License</h2>

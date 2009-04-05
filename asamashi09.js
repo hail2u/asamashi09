@@ -18,19 +18,20 @@ function init() {
 }
 
 function loadTmpl() {
+  $('#result').empty().append($('<p/>').addClass('status').append('テンプレートを読み込んでいます･･･'));
+
   var asin         = $('#asinCode').val();
   var associate_id = $('#associateId').val();
   var tmplUrl      = $('#templateUrl').val();
 
   if (!asin) {
-    $('<p/>').append('フォーム入力エラー: ASINコードが指定されていません。').appendTo('#result');
+    $('#result').empty().append($('<p/>').addClass('error').append('フォーム入力エラー: ASINコードが指定されていません。'));
     $('#asinCode').focus().select();
   } else if (!associate_id) {
-    $('<p/>').append('フォーム入力エラー: アソシエイトIDが指定されていません。').appendTo('#result');
+    $('#result').empty().append($('<p/>').addClass('error').append('フォーム入力エラー: アソシエイトIDが指定されていません。'));
     $('#associateId').focus().select();
   } else if (!tmplUrl) {
-    $('<p/>').append('フォーム入力エラー: テンプレートURLが指定されていません。').appendTo('#result');
-    $('#templateUrl').focus().select();
+    $('#result').empty().append($('<p/>').addClass('error').append('フォーム入力エラー: テンプレートURLが指定されていません。'));
   } else {
     var template = '';
     doSearch(asin, associate_id, template);
@@ -38,6 +39,8 @@ function loadTmpl() {
 }
 
 function doSearch(asin, associate_id, template) {
+  $('#result').empty().append($('<p/>').addClass('status').append('指定したASINコードを検索しています･･･'));
+
   $.getJSON(url, {
     _id:         '23c68494a774b6c65665eacebfaf971b',
     _render:     'json',
@@ -49,25 +52,31 @@ function doSearch(asin, associate_id, template) {
 
     if (res.Items.Request.Errors) {
       var err = res.Items.Request.Errors.Error;
-      $('<p/>').append(document.createTextNode(err.Code + ': ' + err.Message)).appendTo('#result');
+      $('#result').append($('<p/>').addClass('error').append(document.createTextNode(err.Code + ': ' + err.Message)));
     } else {
       var item = res.Items.Item;
       // アサマシプレビュー
-      $('<p/>').append($('<a/>').attr({
+      $('#result').append($('<p/>').append($('<a/>').attr({
         href: item.DetailPageURL
       }).append($('<img/>').attr({
         src:    item.MediumImage.URL,
         width:  item.MediumImage.Width.content,
         height: item.MediumImage.Height.content
-      })).append(document.createTextNode(item.ItemAttributes.Title))).appendTo('#result');
+      })).append(document.createTextNode(item.ItemAttributes.Title))));
 
       // アサマシコード
-      $('<p/>').append($('<textarea/>').attr({
+      $('#result').append($('<p/>').append($('<textarea/>').attr({
         cols: 80,
-        rows: 20
+        rows: 10
       }).focus(function () {
-        this.select();
-      }).append(document.createTextNode($('#result').html()))).appendTo('#result');
+        var self = this;
+        setTimeout(function () { // for Safari
+          $(self).select();
+        }, 10);
+      }).append(document.createTextNode($('#result').html()))));
+
+      // コードにフォーカスを移す
+      $('#result p textarea').focus();
     }
   });
 }
