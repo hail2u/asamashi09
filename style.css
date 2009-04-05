@@ -1,0 +1,80 @@
+@charset "UTF-8";
+@import url("http://yui.yahooapis.com/2.7.0/build/fonts/fonts-min.css");
+
+a {
+  color: #000000;
+}
+
+em {
+  font-style: normal;
+  font-weight: bold;
+}
+
+body {
+  margin: auto;
+  width: 60em;
+  font-family: 'Lucida Grande', 'Lucida Sans', sans-serif;
+}
+
+#header {
+  border-bottom: 1px dotted #000000;
+}
+
+#header h1 {
+  font-weight: normal;
+}
+
+#contents form {
+  margin-left: 3em;
+}
+
+#contents form p {
+  overflow: hidden;
+}
+
+#contents form p label {
+  display: block;
+  float: left;
+  clear: left;
+  width: 10em;
+  height: 1.5em;
+  line-height: 1.5;
+}
+
+#contents form p input {
+  font-family: 'Lucida Grande', 'Lucida Sans', sans-serif;
+}
+
+#contents form p input.button {
+  margin-left: 10em;
+}
+
+#contents hr {
+  border: 0;
+  border-bottom: 3px double #cccccc;
+}
+
+#contents h2 {
+  font-weight: normal;
+}
+
+#contents #result {
+}
+
+#contents #result .error {
+  color: #ff0000;
+}
+
+#contents #result p textarea {
+  font-family: Consolas, Monaco, monospace;
+}
+
+#contents #about {
+}
+
+#contents #license {
+}
+
+#footer {
+  border-top: 1px dotted #000000;
+}

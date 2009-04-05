@@ -1,61 +1,98 @@
+var config = {
+  asin:         '4774134902',
+  associate_id: 'hail2unet-22',
+  template_url: 'http://labs.hail2u.net/amazon/asamashi/template.js'
+};
+
 var url = 'http://pipes.yahoo.com/pipes/pipe.run?_callback=?';
 var buf = [];
 
 function init() {
   $('#searchForm').submit(function () {
-    loadTmpl();
+    setHash();
     return false;
   });
 
   if (location.hash.match(/^#([a-zA-Z0-9]{10}):(.+?):?(http:\/\/.+)?$/)) {
-    $('#asinCode').val((RegExp.$1 ? RegExp.$1 : ''));
-    $('#associateId').val((RegExp.$2 ? RegExp.$2 : 'hail2unet-22'));
-    $('#templateUrl').val((RegExp.$3 ? decodeURIComponent(RegExp.$3) : 'http://labs.hail2u.net/amazon/asamashi/template.js'));
-    loadTmpl();
+    $('#asinCode').val((RegExp.$1 ? decodeURIComponent(RegExp.$1) : config.asin));
+    $('#associateId').val((RegExp.$2 ? decodeURIComponent(RegExp.$2) : config.associate_id));
+    $('#templateUrl').val((RegExp.$3 ? decodeURIComponent(RegExp.$3) : config.template_url));
+    checkForm();
   }
 
   $('#asinCode').focus().select();
+
+  showStatus('初期化が完了しました。');
 }
 
-function loadTmpl() {
-  $('#result').empty().append($('<p/>').addClass('status').append('テンプレートを読み込んでいます･･･'));
+function setHash() {
+  showStatus('ハッシュをセットしています･･･');
+
+  location.href += '#' + [
+    $('#asinCode').val(),
+    $('#associateId').val(),
+    $('#templateUrl').val()
+  ].join(':');
+
+  showStatus('ハッシュをセットしました。');
+
+  checkForm();
+}
+
+function checkForm() {
+  showStatus('フォームの入力内容をチェックしています･･･');
 
   var asin         = $('#asinCode').val();
   var associate_id = $('#associateId').val();
-  var tmplUrl      = $('#templateUrl').val();
+  var tmpl_url     = $('#templateUrl').val();
 
   if (!asin) {
-    $('#result').empty().append($('<p/>').addClass('error').append('フォーム入力エラー: ASINコードが指定されていません。'));
+    showError('フォーム入力エラー: ASINコードが指定されていません。');
     $('#asinCode').focus().select();
   } else if (!associate_id) {
-    $('#result').empty().append($('<p/>').addClass('error').append('フォーム入力エラー: アソシエイトIDが指定されていません。'));
+    showError('フォーム入力エラー: アソシエイトIDが指定されていません。');
     $('#associateId').focus().select();
-  } else if (!tmplUrl) {
-    $('#result').empty().append($('<p/>').addClass('error').append('フォーム入力エラー: テンプレートURLが指定されていません。'));
+  } else if (!tmpl_url) {
+    showError('フォーム入力エラー: テンプレートURLが指定されていません。');
+    $('#templateUrl').focus().select();
   } else {
-    var template = '';
-    doSearch(asin, associate_id, template);
+    showStatus('フォームの入力内容をチェックしています･･･');
+    loadTemplate();
   }
 }
 
-function doSearch(asin, associate_id, template) {
-  $('#result').empty().append($('<p/>').addClass('status').append('指定したASINコードを検索しています･･･'));
+function loadTemplate() {
+  showStatus('テンプレートを読み込んでいます･･･');
+
+  var template = ''; // dummy
+
+  doSearch(template);
+}
+
+function doSearch(template) {
+  showStatus('指定したASINコードを検索しています･･･');
 
   $.getJSON(url, {
     _id:         '23c68494a774b6c65665eacebfaf971b',
     _render:     'json',
-    asin:        asin,
-    tracking_id: associate_id
+    asin:        $('#asinCode').val(),
+    tracking_id: $('#associateId').val()
   }, function (data) {
     var res = data.value.items[0];
-    $('#result').empty();
 
     if (res.Items.Request.Errors) {
-      var err = res.Items.Request.Errors.Error;
-      $('#result').append($('<p/>').addClass('error').append(document.createTextNode(err.Code + ': ' + err.Message)));
+      showError([
+        res.Items.Request.Errors.Error.Code,
+        res.Items.Request.Errors.Error.Message,
+        ].join(': '));
     } else {
       var item = res.Items.Item;
+
+      // 結果表示領域のリセット
+      $('#result').empty();
+
       // アサマシプレビュー
+      $('#result').append($('<h2/>').append(document.createTextNode('プレビュー')));
       $('#result').append($('<p/>').append($('<a/>').attr({
         href: item.DetailPageURL
       }).append($('<img/>').attr({
@@ -65,6 +102,7 @@ function doSearch(asin, associate_id, template) {
       })).append(document.createTextNode(item.ItemAttributes.Title))));
 
       // アサマシコード
+      $('#result').append($('<h2/>').append(document.createTextNode('コード')));
       $('#result').append($('<p/>').append($('<textarea/>').attr({
         cols: 80,
         rows: 10
@@ -75,10 +113,33 @@ function doSearch(asin, associate_id, template) {
         }, 10);
       }).append(document.createTextNode($('#result').html()))));
 
+      // ブックマークレット
+      $('#result').append($('<h2/>').append(document.createTextNode('ブックマークレット')));
+      $('#result').append($('<p/>').append($('<a/>').attr({
+        href: createBookmarklet()
+      }).append($(document.createTextNode('Asamashi09!')))));
+
       // コードにフォーカスを移す
       $('#result p textarea').focus();
     }
   });
+}
+
+function createBookmarklet() {
+  var bookmarklet = 'javascript:(function(){location.href=\'http://labs.hail2u.net/amazon/asamashi/#\'+location.href.replace(/^.*\/dp\/(.*?)\/.*$/,\'$1\')+\':hail2unet-22:http://hail2u.net/scripts/asamashi/img.js\'})();'; // dummy
+
+  return bookmarklet;
+}
+
+// 状態の表示
+function showStatus(msg) {
+  $('#result').empty().append($('<p/>').addClass('status').append(document.createTextNode(msg)));
+}
+
+// エラー表示
+function showError(msg) {
+  alert(msg.toSource());
+  $('#result').empty().append($('<p/>').addClass('error').append(document.createTextNode(msg)));
 }
 
 $(init);
