@@ -2,12 +2,17 @@
   var Asamashi09 = function() {
   };
 
+  // 設定
+  ASIN_CODE    = '4774134902';
+  ASSOCIATE_ID = 'hail2unet-22';
+  TEMPLATE_URL = 'http://labs.hail2u.net/amazon/asamashi/template.js';
+
   Asamashi09.prototype = {
-    // 設定
+    // 設定のコピー
     config: {
-      asin_code:    '4774134902',
-      associate_id: 'hail2unet-22',
-      template_url: 'http://labs.hail2u.net/amazon/asamashi/template.js'
+      asin_code:    this.ASIN_CODE,
+      associate_id: this.ASSOCIATE_ID,
+      template_url: this.TEMPLATE_URL
     },
 
     // フォームを埋める
@@ -85,18 +90,18 @@
           $('#result').empty();
 
           // アサマシプレビュー
-          $('#result').append($('<h2/>').append(document.createTextNode('プレビュー')));
-          $('#result').append($('<p/>').append($('<a/>').attr({
+          $('<h2/>').append(document.createTextNode('プレビュー')).appendTo('#result');
+          $('<p/>').append($('<a/>').attr({
             href: item.DetailPageURL
           }).append($('<img/>').attr({
             src:    item.MediumImage.URL,
             width:  item.MediumImage.Width.content,
             height: item.MediumImage.Height.content
-          })).append(document.createTextNode(item.ItemAttributes.Title))));
+          })).append(document.createTextNode(item.ItemAttributes.Title))).appendTo('#result');
 
           // アサマシコード
-          $('#result').append($('<h2/>').append(document.createTextNode('コード')));
-          $('#result').append($('<p/>').append($('<textarea/>').attr({
+          $('<h2/>').append(document.createTextNode('コード')).appendTo('#result');
+          $('<p/>').append($('<textarea/>').attr({
             cols: 80,
             rows: 10
           }).focus(function () {
@@ -104,11 +109,11 @@
             setTimeout(function () { // for Safari
               $(self).select();
             }, 10);
-          }).append(document.createTextNode($('#result').html()))));
+          }).append(document.createTextNode($('#result').html()))).appendTo('#result');
 
           // ブックマークレット
-          $('#result').append($('<h2/>').append(document.createTextNode('ブックマークレット')));
-          $('#result').append($('<p/>').append($('<a/>').attr({
+          $('<h2/>').append(document.createTextNode('ブックマークレット')).appendTo('#result');
+          $('<p/>').append($('<a/>').attr({
             href: [
               'javascript:(function(){location.href=\'',
               location.href.replace(location.hash, ''),
@@ -118,7 +123,7 @@
               q.template_url,
               '\'})();'
             ].join('')
-          }).append($(document.createTextNode('Asamashi09!')))));
+          }).append($(document.createTextNode('Asamashi09!')))).appendTo('#result');
 
           // コードにフォーカスを移す
           $('#result p textarea').focus();
@@ -128,12 +133,14 @@
 
     // 状態の表示
     showStatus: function (msg) {
-      $('#result').empty().append($('<p/>').addClass('status').append(document.createTextNode(msg)));
+      $('#result').empty();
+      $('<p/>').addClass('status').append(document.createTextNode(msg)).appendTo('#result');
     },
 
     // エラー表示
     showError: function (msg) {
-      $('#result').empty().append($('<p/>').addClass('error').append(document.createTextNode(msg)));
+      $('#result').empty();
+      $('<p/>').addClass('error').append(document.createTextNode(msg)).appendTo('#result');
     }
   };
 
