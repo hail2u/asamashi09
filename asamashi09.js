@@ -142,7 +142,6 @@ function showStatus(msg) {
 
 // エラー表示
 function showError(msg) {
-  alert(msg.toSource());
   $('#result').empty().append($('<p/>').addClass('error').append(document.createTextNode(msg)));
 }
 
