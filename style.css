@@ -11,8 +11,7 @@ em {
 }
 
 body {
-  margin: auto;
-  width: 60em;
+  margin: auto 10em;
   font-family: 'Lucida Grande', 'Lucida Sans', sans-serif;
 }
 

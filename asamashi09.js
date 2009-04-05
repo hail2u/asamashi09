@@ -1,85 +1,96 @@
 // 設定
 var config = {
-  asin:         '4774134902',
+  asin_code:    '4774134902',
   associate_id: 'hail2unet-22',
   template_url: 'http://labs.hail2u.net/amazon/asamashi/template.js'
 };
 
 // 初期化
 function init() {
+  var q = {
+    asin_code:    config.asin_code,
+    associate_id: config.associate_id,
+    template_url: config.template_url
+  };
+
   $('#searchForm').submit(function () {
-    setHash();
+    setHash(q);
     return false;
   });
 
   if (location.hash.match(/^#([a-zA-Z0-9]{10}):(.+?):?(http:\/\/.+)?$/)) {
-    $('#asinCode').val((RegExp.$1 ? decodeURIComponent(RegExp.$1) : config.asin));
-    $('#associateId').val((RegExp.$2 ? decodeURIComponent(RegExp.$2) : config.associate_id));
-    $('#templateUrl').val((RegExp.$3 ? decodeURIComponent(RegExp.$3) : config.template_url));
-    checkForm();
+    q.asin_code    = RegExp.$1;
+    q.associate_id = RegExp.$2;
+    q.template_url = RegExp.$3;
+    fillForm(q);
+    checkForm(q);
+  } else {
+    fillForm(q);
+    $('#asinCode').focus().select();
+    showStatus('初期化が完了しました。');
   }
+}
 
-  $('#asinCode').focus().select();
+// フォームを埋める
+function fillForm(q) {
+  showStatus('フォームを埋めています･･･');
 
-  showStatus('初期化が完了しました。');
+  $('#asinCode').val(q.asin_code);
+  $('#associateId').val(q.associate_id);
+  $('#templateUrl').val(q.template_url);
 }
 
 // ハッシュをセット
-function setHash() {
+function setHash(q) {
   showStatus('ハッシュをセットしています･･･');
 
-  location.href += '#' + [
-    $('#asinCode').val(),
-    $('#associateId').val(),
-    $('#templateUrl').val()
+  location.hash = '#' + [
+    q.asin_code,
+    q.associate_id,
+    q.template_url
   ].join(':');
 
-  showStatus('ハッシュをセットしました。');
-
-  checkForm();
+  checkForm(q);
 }
 
 // フォームのチェック
-function checkForm() {
+function checkForm(q) {
   showStatus('フォームの入力内容をチェックしています･･･');
 
-  var asin         = $('#asinCode').val();
-  var associate_id = $('#associateId').val();
-  var tmpl_url     = $('#templateUrl').val();
-
-  if (!asin) {
+  // それぞれ妥当なデータかどうかチェックする･･･ものを後で書く
+  if (!q.asin_code) {
     showError('フォーム入力エラー: ASINコードが指定されていません。');
     $('#asinCode').focus().select();
-  } else if (!associate_id) {
+  } else if (!q.associate_id) {
     showError('フォーム入力エラー: アソシエイトIDが指定されていません。');
     $('#associateId').focus().select();
-  } else if (!tmpl_url) {
+  } else if (!q.template_url) {
     showError('フォーム入力エラー: テンプレートURLが指定されていません。');
     $('#templateUrl').focus().select();
   } else {
-    showStatus('フォームの入力内容をチェックしています･･･');
-    loadTemplate();
+    loadTemplate(q);
   }
 }
 
 // テンプレートの読み込み
-function loadTemplate() {
+function loadTemplate(q) {
   showStatus('テンプレートを読み込んでいます･･･');
 
-  var template = ''; // dummy
+  // JSONで書かれたテンプレートを読み込む･･･ものを後で書く
+  q.template = '<!-- this is a dumy template -->';
 
-  doSearch(template);
+  doSearch(q);
 }
 
 // 検索の実行
-function doSearch(template) {
+function doSearch(q) {
   showStatus('指定したASINコードを検索しています･･･');
 
   $.getJSON('http://pipes.yahoo.com/pipes/pipe.run?_callback=?', {
     _id:         '23c68494a774b6c65665eacebfaf971b',
     _render:     'json',
-    asin:        $('#asinCode').val(),
-    tracking_id: $('#associateId').val()
+    asin:        q.asin_code,
+    tracking_id: q.associate_id
   }, function (data) {
     var res = data.value.items[0];
 
