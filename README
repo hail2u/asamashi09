@@ -1,5 +1,24 @@
+Title
+=====
+
 Asamashi09
+
+Description
+===========
 
 http://labs.hail2u.net/amazon/asamashi/
 
 を、jQueryの練習のために移植してみる試み。
+
+Sample
+======
+
+http://hail2u.github.com/asamashi09/
+
+作りかけ。
+
+ToDo
+====
+
+* テンプレート・システム
+* フォーム入力のチェック
