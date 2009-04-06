@@ -42,17 +42,44 @@
       this.showStatus('フォームの入力内容をチェックしています･･･');
 
       // それぞれ妥当なデータかどうかチェックする･･･ものを後で書く
-      if (!q.asin_code) {
-        this.showError('フォーム入力エラー: ASINコードが指定されていません。');
+      if (!q.asin_code || !this.checkASINCode(q.asin_code)) {
+        this.showError('フォーム入力エラー: ASINコードが指定されていないか無効な値です。');
         $('#asinCode').focus().select();
-      } else if (!q.associate_id) {
-        this.showError('フォーム入力エラー: アソシエイトIDが指定されていません。');
+      } else if (!q.associate_id || !this.checkAssociateID(q.associate_id)) {
+        this.showError('フォーム入力エラー: アソシエイトIDが指定されていないか無効な値です。');
         $('#associateId').focus().select();
-      } else if (!q.template_url) {
-        this.showError('フォーム入力エラー: テンプレートURLが指定されていません。');
+      } else if (!q.template_url || !this.checkTemplateURL(q.template_url)) {
+        this.showError('フォーム入力エラー: テンプレートURLが指定されていないか無効なURLです。');
         $('#templateUrl').focus().select();
       } else {
         this.loadTemplate(q);
+      }
+    },
+
+    // ASINコードのチェック
+    checkASINCode: function (asin) {
+      if (asin.match(/^[B0-9][A-Z0-9]{9}$/)) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+    // アソシエイトIDのチェック
+    checkAssociateID: function (asin) {
+      if (asin.match(/^[a-zA-Z\d]+-22$/)) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+    // アソシエイトIDのチェック
+    checkTemplateURL: function (asin) {
+      if (asin.match(/^http:\/\/.+/)) {
+        return true;
+      } else {
+        return false;
       }
     },
 
@@ -68,6 +95,7 @@
 
     // 検索の実行
     doSearch: function (q) {
+      var self = this;
       this.showStatus('指定したASINコードを検索しています･･･');
 
       $.getJSON('http://pipes.yahoo.com/pipes/pipe.run?_callback=?', {
@@ -79,7 +107,7 @@
         var res = data.value.items[0];
 
         if (res.Items.Request.Errors) {
-          this.showError([
+          self.showError([
             res.Items.Request.Errors.Error.Code,
             res.Items.Request.Errors.Error.Message
           ].join(': '));
@@ -158,13 +186,17 @@ $(function () {
   };
 
   $('#searchForm').submit(function () {
-    a09.setHash(q);
+    a09.setHash({
+      asin_code:    $('#asinCode').val(),
+      associate_id: $('#associateId').val(),
+      template_url: $('#templateUrl').val()
+    });
     return false;
   });
 
-  if (location.hash.match(/^#([a-zA-Z0-9]{10}):(.+?):?(http:\/\/.+)?$/)) {
+  if (location.hash.match(/^#([B\d][A-Z\d]{9}):([a-zA-Z\d]+-22):?(http:\/\/.+)?$/)) {
     q.asin_code    = RegExp.$1;
-    q.associate_id = RegExp.$2;
+    q.associate_id = RegExp.$2; alert(q.asin_code);
     q.template_url = RegExp.$3;
     a09.fillForm(q);
     a09.checkForm(q);
