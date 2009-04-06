@@ -118,7 +118,7 @@
           $('#result').empty();
 
           // アサマシプレビュー
-          $('<h2/>').append(document.createTextNode('プレビュー')).appendTo('#result');
+          $('<h2/>').append(document.createTextNode('Preview')).appendTo('#result');
           $('<div/>').attr({
             id: 'preview'
           }).append($('<p/>').append($('<a/>').attr({
@@ -130,7 +130,7 @@
           })).append(document.createTextNode(item.ItemAttributes.Title)))).appendTo('#result');
 
           // アサマシコード
-          $('<h2/>').append(document.createTextNode('コード')).appendTo('#result');
+          $('<h2/>').append(document.createTextNode('Code')).appendTo('#result');
           $('<p/>').append($('<textarea/>').attr({
             cols: 80,
             rows: 10
@@ -142,7 +142,7 @@
           }).append(document.createTextNode($('#preview').html()))).appendTo('#result');
 
           // ブックマークレット
-          $('<h2/>').append(document.createTextNode('ブックマークレット')).appendTo('#result');
+          $('<h2/>').append(document.createTextNode('Bookmarklet')).appendTo('#result');
           $('<p/>').append($('<a/>').attr({
             href: [
               'javascript:(function(){location.href=\'',
@@ -157,20 +157,23 @@
 
           // コードにフォーカスを移す
           $('#result p textarea').focus();
+
+          // 検索完了の通知
+          self.showStatus('検索が完了しました。');
         }
       });
     },
 
     // 状態の表示
     showStatus: function (msg) {
-      $('#result').empty();
-      $('<p/>').addClass('status').append(document.createTextNode(msg)).appendTo('#result');
+      $('#message').empty();
+      $('<p/>').addClass('status').append(document.createTextNode(msg)).appendTo('#message');
     },
 
     // エラー表示
     showError: function (msg) {
-      $('#result').empty();
-      $('<p/>').addClass('error').append(document.createTextNode(msg)).appendTo('#result');
+      $('#message').empty();
+      $('<p/>').addClass('error').append(document.createTextNode(msg)).appendTo('#message');
     }
   };
 
@@ -203,6 +206,8 @@ $(function () {
   } else {
     a09.fillForm(q);
     $('#asinCode').focus().select();
+    $('#result').empty();
+    $('<p/>').append(document.createTextNode('ASINコード、アソシエイトID、及びテンプレートURLを入力してフォームを送信してください。')).appendTo('#result');
     a09.showStatus('初期化が完了しました。');
   }
 });

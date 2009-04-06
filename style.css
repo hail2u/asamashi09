@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import url("http://yui.yahooapis.com/2.7.0/build/fonts/fonts-min.css");
 
 a {
   color: #000000;
@@ -12,75 +11,99 @@ em {
 }
 
 body {
-  margin: auto 10em;
+  margin: 65px 130px;
+  padding: 0;
   color: #000000;
   background-color: #ffffff;
   font-family: 'Lucida Grande', 'Lucida Sans', sans-serif;
+  letter-spacing: 1px;
+}
+
+h1 {
+  margin: 39px 0 0 0;
+  padding: 0;
+  font-size: 189%;
+  font-weight: normal;
+}
+
+h2 {
+  margin: 39px 0 0 0;
+  padding: 0;
+  font-size: 167%;
+  font-weight: normal;
+}
+
+p {
+  margin: 13px 0 0 0;
 }
 
 #header {
-  border-bottom: 1px dotted #000000;
+  margin: 65px 0 0 0;
 }
 
-#header h1 {
-  font-weight: normal;
+#contents {
+  margin: 65px 0 0 0;
 }
 
-#contents form {
-  margin-left: 3em;
+#contents #message {
+  margin: 39px 0 0 0;
 }
 
-#contents form p {
-  overflow: hidden;
-}
-
-#contents form p label {
-  display: block;
-  float: left;
-  clear: left;
-  width: 10em;
-  height: 1.5em;
-  line-height: 1.5;
-}
-
-#contents form p input {
-  font-family: 'Lucida Grande', 'Lucida Sans', sans-serif;
-}
-
-#contents form p input.button {
-  margin-left: 10em;
-}
-
-#contents hr {
-  border: 0;
-  border-bottom: 3px double #cccccc;
-}
-
-#contents h2 {
-  font-weight: normal;
-}
-
-#contents #result {
-}
-
-#contents #result .status {
+#contents #message .status {
   color: #cccccc;
 }
 
-#contents #result .error {
+#contents #message .error {
   color: #ff0000;
 }
 
+#contents form {
+  margin: 39px 0 0 0;
+}
+
+#contents form table {
+  margin: 0;
+  padding: 0;
+}
+
+#contents form table tr th {
+  padding-bottom: 13px;
+  width: 130px;
+  text-align: left;
+}
+
+#contents form table tr th label {
+}
+
+#contents form table tr td {
+  padding-bottom: 13px;
+}
+
+#contents form table tr td input {
+  padding: 3px;
+  font-family: 'Lucida Grande', 'Lucida Sans', sans-serif;
+}
+
+#contents form p {
+  margin: 0 0 0 130px;
+}
+
+#contents form p input {
+}
+
+#contents #result {
+  margin: 39px 0 0 0;
+}
+
 #contents #result p textarea {
+  width: 650px;
   font-family: Consolas, Monaco, monospace;
 }
 
-#contents #about {
-}
-
-#contents #license {
+#about {
+  margin: 65px 0 0 0;
 }
 
 #footer {
-  border-top: 1px dotted #000000;
+  margin: 65px 0 0 0;
 }

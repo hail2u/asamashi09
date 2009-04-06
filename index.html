@@ -7,6 +7,7 @@
 
 <title>Asamashi09</title>
 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/fonts/fonts-min.css" />
 <link rel="stylesheet" type="text/css" href="./style.css" />
 
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
@@ -21,36 +22,30 @@ google.load("jquery", "1.3.2");
 </div>
 
 <div id="contents">
-  <div id="message">
-    <p>ASINコード・アソシエイトID・テンプレートURLを入力し、<em>コードを取得ボタン</em>または<em><kbd>Enter</kbd></em>を押してください。</p>
-  </div>
-
   <form action="index.html" id="searchForm">
-    <p>
-      <label for="asinCode">ASINコード:</label>
-      <input type="text" name="asinCode" size="48" id="asinCode" />
-    </p>
-    <p>
-      <label for="associateId">アソシエイトID:</label>
-      <input type="text" name="associateId" size="48" id="associateId" />
-    </p>
-    <p>
-      <label for="templateUrl">テンプレートURL:</label>
-      <input type="text" name="templateUrl" size="48" id="templateUrl" />
-    </p>
-    <p>
-      <input type="submit" value="コードを取得" class="button" />
-    </p>
+    <table cellspacing="0" cellpadding="0">
+      <tr>
+        <th><label for="asinCode">ASINコード:</label></th>
+        <td><input type="text" name="asinCode" size="40" id="asinCode" /></td>
+      </tr>
+      <tr>
+        <th><label for="associateId">アソシエイトID:</label></th>
+        <td><input type="text" name="associateId" size="40" id="associateId" /></td>
+      </tr>
+      <tr>
+        <th><label for="templateUrl">テンプレートURL:</label></th>
+        <td><input type="text" name="templateUrl" size="40" id="templateUrl" /></td>
+      </tr>
+    </table>
+    <p><input type="submit" value="コードを取得" class="button" /></p>
   </form>
 
-  <div id="result"></div>
+  <div id="message">
+    <p class="status">ページを読み込みました。</p>
+  </div>
 
-  <hr />
-
-  <div id="about">
-    <h2>About</h2>
-
-    <p>(後で書く)</p>
+  <div id="result">
+    <p>Asamashi09を利用するにはブラウザの設定でJavaScriptを有効にする必要があります。</p>
   </div>
 </div>
 
