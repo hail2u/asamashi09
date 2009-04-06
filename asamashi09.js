@@ -196,7 +196,7 @@ $(function () {
 
   if (location.hash.match(/^#([B\d][A-Z\d]{9}):([a-zA-Z\d]+-22):?(http:\/\/.+)?$/)) {
     q.asin_code    = RegExp.$1;
-    q.associate_id = RegExp.$2; alert(q.asin_code);
+    q.associate_id = RegExp.$2;
     q.template_url = RegExp.$3;
     a09.fillForm(q);
     a09.checkForm(q);
