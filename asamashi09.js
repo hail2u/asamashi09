@@ -91,13 +91,15 @@
 
           // アサマシプレビュー
           $('<h2/>').append(document.createTextNode('プレビュー')).appendTo('#result');
-          $('<p/>').append($('<a/>').attr({
+          $('<div/>').attr({
+            id: 'preview'
+          }).append($('<p/>').append($('<a/>').attr({
             href: item.DetailPageURL
           }).append($('<img/>').attr({
             src:    item.MediumImage.URL,
             width:  item.MediumImage.Width.content,
             height: item.MediumImage.Height.content
-          })).append(document.createTextNode(item.ItemAttributes.Title))).appendTo('#result');
+          })).append(document.createTextNode(item.ItemAttributes.Title)))).appendTo('#result');
 
           // アサマシコード
           $('<h2/>').append(document.createTextNode('コード')).appendTo('#result');
@@ -109,7 +111,7 @@
             setTimeout(function () { // for Safari
               $(self).select();
             }, 10);
-          }).append(document.createTextNode($('#result').html()))).appendTo('#result');
+          }).append(document.createTextNode($('#preview').html()))).appendTo('#result');
 
           // ブックマークレット
           $('<h2/>').append(document.createTextNode('ブックマークレット')).appendTo('#result');
