@@ -52,7 +52,7 @@
         this.showError('フォーム入力エラー: テンプレートURLが指定されていないか無効なURLです。');
         $('#templateUrl').focus().select();
       } else {
-        this.loadTemplate(q);
+        this.doSearch(q);
       }
     },
 
@@ -83,16 +83,6 @@
       }
     },
 
-    // テンプレートの読み込み
-    loadTemplate: function (q) {
-      this.showStatus('テンプレートを読み込んでいます･･･');
-
-      // JSONで書かれたテンプレートを読み込む･･･ものを後で書く
-      q.template = '<!-- this is a dumy template -->';
-
-      this.doSearch(q);
-    },
-
     // 検索の実行
     doSearch: function (q) {
       var self = this;
@@ -121,13 +111,18 @@
           $('<h2/>').append(document.createTextNode('Preview')).appendTo('#result');
           $('<div/>').attr({
             id: 'preview'
+          }).appendTo('#result');
+          $('#preview').setTemplateURL('./template.tpl');
+          $('#preview').processTemplate(item);
+          /* $('<div/>').attr({
+            id: 'preview'
           }).append($('<p/>').append($('<a/>').attr({
             href: item.DetailPageURL
           }).append($('<img/>').attr({
             src:    item.MediumImage.URL,
             width:  item.MediumImage.Width.content,
             height: item.MediumImage.Height.content
-          })).append(document.createTextNode(item.ItemAttributes.Title)))).appendTo('#result');
+          })).append(document.createTextNode(item.ItemAttributes.Title)))).appendTo('#result'); */
 
           // アサマシコード
           $('<h2/>').append(document.createTextNode('Code')).appendTo('#result');

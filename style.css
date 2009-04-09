@@ -95,6 +95,39 @@ p {
   margin: 39px 0 0 0;
 }
 
+#contents #result #preview {
+  margin: 13px 0 0 0;
+  padding: 13px;
+  border: 1px solid #cccccc;
+  background-color: #eeeeee;
+}
+
+#contents #result #preview .asamashi {
+  overflow: hidden;
+}
+
+#contents #result #preview .asamashi .image {
+  float: left;
+  width: auto;
+}
+
+#contents #result #preview .asamashi .image a {
+  text-decoration: none;
+}
+
+#contents #result #preview .asamashi .image a img {
+  border: 0;
+}
+
+#contents #result #preview .asamashi .title {
+  margin-left: 173px;
+}
+
+#contents #result #preview .asamashi .detail {
+  margin-left: 173px;
+  line-height: 1.75;
+}
+
 #contents #result p textarea {
   width: 650px;
   font-family: Consolas, Monaco, monospace;
