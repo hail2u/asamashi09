@@ -114,15 +114,6 @@
           }).appendTo('#result');
           $('#preview').setTemplateURL('./template.tpl');
           $('#preview').processTemplate(item);
-          /* $('<div/>').attr({
-            id: 'preview'
-          }).append($('<p/>').append($('<a/>').attr({
-            href: item.DetailPageURL
-          }).append($('<img/>').attr({
-            src:    item.MediumImage.URL,
-            width:  item.MediumImage.Width.content,
-            height: item.MediumImage.Height.content
-          })).append(document.createTextNode(item.ItemAttributes.Title)))).appendTo('#result'); */
 
           // アサマシコード
           $('<h2/>').append(document.createTextNode('Code')).appendTo('#result');
