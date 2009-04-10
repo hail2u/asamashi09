@@ -41,7 +41,7 @@
     checkForm: function (q) {
       this.showStatus('フォームの入力内容をチェックしています･･･');
 
-      // それぞれ妥当なデータかどうかチェックする･･･ものを後で書く
+      // それぞれ妥当なデータかどうかチェックする
       if (!q.asin_code || !this.checkASINCode(q.asin_code)) {
         this.showError('フォーム入力エラー: ASINコードが指定されていないか無効な値です。');
         $('#asinCode').focus().select();
@@ -57,8 +57,8 @@
     },
 
     // ASINコードのチェック
-    checkASINCode: function (asin) {
-      if (asin.match(/^[B0-9][A-Z0-9]{9}$/)) {
+    checkASINCode: function (d) {
+      if (d.match(/^[B\d][A-Z\d]{9}$/)) {
         return true;
       } else {
         return false;
@@ -66,17 +66,17 @@
     },
 
     // アソシエイトIDのチェック
-    checkAssociateID: function (asin) {
-      if (asin.match(/^[a-zA-Z\d]+-22$/)) {
+    checkAssociateID: function (d) {
+      if (d.match(/^[a-zA-Z\d]+-22$/)) {
         return true;
       } else {
         return false;
       }
     },
 
-    // アソシエイトIDのチェック
-    checkTemplateURL: function (asin) {
-      if (asin.match(/^http:\/\/.+/)) {
+    // テンプレートURLのチェック
+    checkTemplateURL: function (d) {
+      if (d.match(/^http:\/\/.+/)) {
         return true;
       } else {
         return false;
@@ -140,12 +140,13 @@
           $('<h2/>').text('Code').appendTo('#result');
           $('<p/>').append($('<textarea/>').attr({
             cols: 80,
-            rows: 10
+            rows: 10,
+            id:   'code'
           }).focus(function () {
             var self = this;
             setTimeout(function () { // for Safari
               $(self).select();
-            }, 10);
+            }, 100);
           }).text($('#preview').html())).appendTo('#result');
 
           // ブックマークレット
@@ -163,7 +164,7 @@
           }).text('Asamashi09!')).appendTo('#result');
 
           // コードにフォーカスを移す
-          $('#result p textarea').focus();
+          $('#code').focus();
 
           // 検索完了の通知
           self.showStatus('検索が完了しました。');
@@ -204,7 +205,7 @@ $(function () {
     return false;
   });
 
-  if (location.hash.match(/^#([B\d][A-Z\d]{9}):([a-zA-Z\d]+-22):?(http:\/\/.+)?$/)) {
+  if (location.hash.match(/^#([B\d][A-Z\d]{9}):([a-zA-Z\d]+-22):(http:\/\/.+)$/)) {
     q.asin_code    = RegExp.$1;
     q.associate_id = RegExp.$2;
     q.template_url = RegExp.$3;
