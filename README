@@ -7,19 +7,11 @@ Asamashi09
 Description
 ===========
 
-http://labs.hail2u.net/amazon/asamashi/
-
-を、jQueryの練習のために移植してみる試み。
+外部ドメインに置いたテンプレート・ファイルにより出力をカスタマイズすることができ
+るPure JavaScriptなAmazonアソシエイト・ツール 
 
 
 Sample
 ======
 
 http://hail2u.github.com/asamashi09/
-
-作りかけ。肝心のテンプレートシステムを作ってないという･･･。
-
-ToDo
-====
-
-- テンプレート読み込み失敗時の対策
