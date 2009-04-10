@@ -108,7 +108,7 @@
           $('#result').empty();
 
           // アサマシプレビュー
-          $('<h2/>').append(document.createTextNode('Preview')).appendTo('#result');
+          $('<h2/>').text('Preview').appendTo('#result');
           $('<div/>').attr({
             id: 'preview'
           }).appendTo('#result');
@@ -116,7 +116,7 @@
           $('#preview').processTemplate(item);
 
           // アサマシコード
-          $('<h2/>').append(document.createTextNode('Code')).appendTo('#result');
+          $('<h2/>').text('Code').appendTo('#result');
           $('<p/>').append($('<textarea/>').attr({
             cols: 80,
             rows: 10
@@ -125,10 +125,10 @@
             setTimeout(function () { // for Safari
               $(self).select();
             }, 10);
-          }).append(document.createTextNode($('#preview').html()))).appendTo('#result');
+          }).text($('#preview').html())).appendTo('#result');
 
           // ブックマークレット
-          $('<h2/>').append(document.createTextNode('Bookmarklet')).appendTo('#result');
+          $('<h2/>').text('Bookmarklet').appendTo('#result');
           $('<p/>').append($('<a/>').attr({
             href: [
               'javascript:(function(){location.href=\'',
@@ -139,7 +139,7 @@
               q.template_url,
               '\'})();'
             ].join('')
-          }).append($(document.createTextNode('Asamashi09!')))).appendTo('#result');
+          }).text('Asamashi09!')).appendTo('#result');
 
           // コードにフォーカスを移す
           $('#result p textarea').focus();
@@ -153,13 +153,13 @@
     // 状態の表示
     showStatus: function (msg) {
       $('#message').empty();
-      $('<p/>').addClass('status').append(document.createTextNode(msg)).appendTo('#message');
+      $('<p/>').addClass('status').text(msg).appendTo('#message');
     },
 
     // エラー表示
     showError: function (msg) {
       $('#message').empty();
-      $('<p/>').addClass('error').append(document.createTextNode(msg)).appendTo('#message');
+      $('<p/>').addClass('error').text(msg).appendTo('#message');
     }
   };
 
