@@ -5,7 +5,7 @@
   // 設定
   ASIN_CODE    = '4774134902';
   ASSOCIATE_ID = 'hail2unet-22';
-  TEMPLATE_URL = 'http://labs.hail2u.net/amazon/asamashi/template.js';
+  TEMPLATE_URL = 'http://hail2u.github.com/asamashi09/template.json';
 
   Asamashi09.prototype = {
     // 設定のコピー
@@ -52,7 +52,7 @@
         this.showError('フォーム入力エラー: テンプレートURLが指定されていないか無効なURLです。');
         $('#templateUrl').focus().select();
       } else {
-        this.doSearch(q);
+        this.loadTemplate(q);
       }
     },
 
@@ -83,10 +83,31 @@
       }
     },
 
-    // 検索の実行
-    doSearch: function (q) {
+    // テンプレートのロード
+    loadTemplate: function (q) {
+      this.showStatus('テンプレートをロードしています･･･');
+
       var self = this;
+
+      $.getJSON('http://query.yahooapis.com/v1/public/yql?callback=?', {
+        format: 'json',
+        q:      'select * from json where url="' + q.template_url + '"'
+      }, function (data) {
+        var res = data.query.results;
+
+        if (!data || !res || !res.template) {
+          self.showError('テンプレートがロードできませんでした。');
+        } else {
+          self.doSearch(q, res.template);
+        }
+      });
+    },
+
+    // 検索の実行
+    doSearch: function (q, template) {
       this.showStatus('指定したASINコードを検索しています･･･');
+
+      var self = this;
 
       $.getJSON('http://pipes.yahoo.com/pipes/pipe.run?_callback=?', {
         _id:         '23c68494a774b6c65665eacebfaf971b',
@@ -112,7 +133,7 @@
           $('<div/>').attr({
             id: 'preview'
           }).appendTo('#result');
-          $('#preview').setTemplateURL('./template.tpl');
+          $('#preview').setTemplate(template);
           $('#preview').processTemplate(item);
 
           // アサマシコード
@@ -193,7 +214,7 @@ $(function () {
     a09.fillForm(q);
     $('#asinCode').focus().select();
     $('#result').empty();
-    $('<p/>').append(document.createTextNode('ASINコード、アソシエイトID、及びテンプレートURLを入力してフォームを送信してください。')).appendTo('#result');
+    $('<p/>').text('ASINコード、アソシエイトID、及びテンプレートURLを入力してフォームを送信してください。').appendTo('#result');
     a09.showStatus('初期化が完了しました。');
   }
 });
