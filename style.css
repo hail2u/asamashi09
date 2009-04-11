@@ -81,6 +81,7 @@ p {
 
 #contents form table tr td input {
   padding: 3px;
+  width: 510px;
   font-family: 'Lucida Grande', 'Lucida Sans', sans-serif;
 }
 
@@ -99,6 +100,7 @@ p {
   margin: 13px 0 0 0;
   padding: 13px;
   border: 1px solid #cccccc;
+  width: 622px;
   background-color: #eeeeee;
 }
 
@@ -107,6 +109,7 @@ p {
 }
 
 #contents #result #preview .asamashi .image {
+  margin-top: 0;
   float: left;
   width: auto;
 }
@@ -120,7 +123,7 @@ p {
 }
 
 #contents #result #preview .asamashi .title {
-  margin-left: 173px;
+  margin: 0 0 0 173px;
 }
 
 #contents #result #preview .asamashi .detail {
@@ -129,7 +132,7 @@ p {
 }
 
 #contents #result p textarea {
-  width: 650px;
+  width: 646px;
   font-family: Consolas, Monaco, monospace;
 }
 
