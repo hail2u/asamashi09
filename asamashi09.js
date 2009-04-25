@@ -8,7 +8,7 @@
   TEMPLATE_URL = "http://hail2u.github.com/asamashi09/template.json";
 
   Asamashi09.prototype = {
-    // 設定のコピー
+    // 設定をコピー
     config: {
       asin_code:    this.ASIN_CODE,
       associate_id: this.ASSOCIATE_ID,
