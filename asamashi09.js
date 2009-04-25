@@ -3,9 +3,9 @@
   };
 
   // 設定
-  ASIN_CODE    = '4774134902';
-  ASSOCIATE_ID = 'hail2unet-22';
-  TEMPLATE_URL = 'http://hail2u.github.com/asamashi09/template.json';
+  ASIN_CODE    = "4774134902";
+  ASSOCIATE_ID = "hail2unet-22";
+  TEMPLATE_URL = "http://hail2u.github.com/asamashi09/template.json";
 
   Asamashi09.prototype = {
     // 設定のコピー
@@ -17,40 +17,40 @@
 
     // フォームを埋める
     fillForm: function (q) {
-      this.showStatus('フォームを埋めています･･･');
+      this.showStatus("フォームを埋めています･･･");
 
-      $('#asinCode').val(q.asin_code);
-      $('#associateId').val(q.associate_id);
-      $('#templateUrl').val(q.template_url);
+      $("#asinCode").val(q.asin_code);
+      $("#associateId").val(q.associate_id);
+      $("#templateUrl").val(q.template_url);
     },
 
     // ハッシュをセット
     setHash: function(q) {
-      this.showStatus('ハッシュをセットしています･･･');
+      this.showStatus("ハッシュをセットしています･･･");
 
-      location.hash = '#' + [
+      location.hash = "#" + [
         q.asin_code,
         q.associate_id,
         q.template_url
-      ].join(':');
+      ].join(":");
 
       this.checkForm(q);
     },
 
     // フォームのチェック
     checkForm: function (q) {
-      this.showStatus('フォームの入力内容をチェックしています･･･');
+      this.showStatus("フォームの入力内容をチェックしています･･･");
 
       // それぞれ妥当なデータかどうかチェックする
       if (!q.asin_code || !this.checkASINCode(q.asin_code)) {
-        this.showError('フォーム入力エラー: ASINコードが指定されていないか無効な値です。');
-        $('#asinCode').focus().select();
+        this.showError("フォーム入力エラー: ASINコードが指定されていないか無効な値です。");
+        $("#asinCode").focus().select();
       } else if (!q.associate_id || !this.checkAssociateID(q.associate_id)) {
-        this.showError('フォーム入力エラー: アソシエイトIDが指定されていないか無効な値です。');
-        $('#associateId').focus().select();
+        this.showError("フォーム入力エラー: アソシエイトIDが指定されていないか無効な値です。");
+        $("#associateId").focus().select();
       } else if (!q.template_url || !this.checkTemplateURL(q.template_url)) {
-        this.showError('フォーム入力エラー: テンプレートURLが指定されていないか無効なURLです。');
-        $('#templateUrl').focus().select();
+        this.showError("フォーム入力エラー: テンプレートURLが指定されていないか無効なURLです。");
+        $("#templateUrl").focus().select();
       } else {
         this.loadTemplate(q);
       }
@@ -85,18 +85,18 @@
 
     // テンプレートのロード
     loadTemplate: function (q) {
-      this.showStatus('テンプレートをロードしています･･･');
+      this.showStatus("テンプレートをロードしています･･･");
 
       var self = this;
 
-      $.getJSON('http://query.yahooapis.com/v1/public/yql?callback=?', {
-        format: 'json',
-        q:      'select * from json where url="' + q.template_url + '"'
+      $.getJSON("http://query.yahooapis.com/v1/public/yql?callback=?", {
+        format: "json",
+        q:      "select * from json where url=\"" + q.template_url + "\""
       }, function (data) {
         var res = data.query.results;
 
         if (!data || !res || !res.template) {
-          self.showError('テンプレートがロードできませんでした。');
+          self.showError("テンプレートがロードできませんでした。");
         } else {
           self.doSearch(q, res.template);
         }
@@ -105,13 +105,13 @@
 
     // 検索の実行
     doSearch: function (q, template) {
-      this.showStatus('指定したASINコードを検索しています･･･');
+      this.showStatus("指定したASINコードを検索しています･･･");
 
       var self = this;
 
-      $.getJSON('http://pipes.yahoo.com/pipes/pipe.run?_callback=?', {
-        _id:         '23c68494a774b6c65665eacebfaf971b',
-        _render:     'json',
+      $.getJSON("http://pipes.yahoo.com/pipes/pipe.run?_callback=?", {
+        _id:         "23c68494a774b6c65665eacebfaf971b",
+        _render:     "json",
         asin:        q.asin_code,
         tracking_id: q.associate_id
       }, function (data) {
@@ -121,67 +121,67 @@
           self.showError([
             res.Items.Request.Errors.Error.Code,
             res.Items.Request.Errors.Error.Message
-          ].join(': '));
+          ].join(": "));
         } else {
           var item = res.Items.Item;
 
           // 結果表示領域のリセット
-          $('#result').empty();
+          $("#result").empty();
 
           // アサマシプレビュー
-          $('<h2/>').text('Preview').appendTo('#result');
-          $('<div/>').attr({
-            id: 'preview'
-          }).appendTo('#result');
-          $('#preview').setTemplate(template);
-          $('#preview').processTemplate(item);
+          $("<h2/>").text("Preview").appendTo("#result");
+          $("<div/>").attr({
+            id: "preview"
+          }).appendTo("#result");
+          $("#preview").setTemplate(template);
+          $("#preview").processTemplate(item);
 
           // アサマシコード
-          $('<h2/>').text('Code').appendTo('#result');
-          $('<p/>').append($('<textarea/>').attr({
+          $("<h2/>").text("Code").appendTo("#result");
+          $("<p/>").append($("<textarea/>").attr({
             cols: 80,
             rows: 10,
-            id:   'code'
+            id:   "code"
           }).focus(function () {
             var self = this;
             setTimeout(function () { // for Safari
               $(self).select();
             }, 100);
-          }).text($('#preview').html())).appendTo('#result');
+          }).text($("#preview").html())).appendTo("#result");
 
           // ブックマークレット
-          $('<h2/>').text('Bookmarklet').appendTo('#result');
-          $('<p/>').append($('<a/>').attr({
+          $("<h2/>").text("Bookmarklet").appendTo("#result");
+          $("<p/>").append($("<a/>").attr({
             href: [
-              'javascript:(function(){location.href=\'',
-              location.href.replace(location.hash, ''),
-              '#\'+location.href.replace(/^.*\\/dp\\/(.*?)\\/.*$/,\'$1\')+\':',
+              "javascript:(function(){location.href=\"",
+              location.href.replace(location.hash, ""),
+              "#\"+location.href.replace(/^.*\\/dp\\/(.*?)\\/.*$/,\"$1\")+\":",
               q.associate_id,
-              ':',
+              ":",
               q.template_url,
-              '\'})();'
-            ].join('')
-          }).text('Asamashi09!')).appendTo('#result');
+              "\"})();"
+            ].join("")
+          }).text("Asamashi09!")).appendTo("#result");
 
           // コードにフォーカスを移す
-          $('#code').focus();
+          $("#code").focus();
 
           // 検索完了の通知
-          self.showStatus('検索が完了しました。');
+          self.showStatus("検索が完了しました。");
         }
       });
     },
 
     // 状態の表示
     showStatus: function (msg) {
-      $('#message').empty();
-      $('<p/>').addClass('status').text(msg).appendTo('#message');
+      $("#message").empty();
+      $("<p/>").addClass("status").text(msg).appendTo("#message");
     },
 
     // エラー表示
     showError: function (msg) {
-      $('#message').empty();
-      $('<p/>').addClass('error').text(msg).appendTo('#message');
+      $("#message").empty();
+      $("<p/>").addClass("error").text(msg).appendTo("#message");
     }
   };
 
@@ -196,11 +196,11 @@ $(function () {
     template_url: a09.config.template_url
   };
 
-  $('#searchForm').submit(function () {
+  $("#searchForm").submit(function () {
     a09.setHash({
-      asin_code:    $('#asinCode').val(),
-      associate_id: $('#associateId').val(),
-      template_url: $('#templateUrl').val()
+      asin_code:    $("#asinCode").val(),
+      associate_id: $("#associateId").val(),
+      template_url: $("#templateUrl").val()
     });
     return false;
   });
@@ -213,9 +213,9 @@ $(function () {
     a09.checkForm(q);
   } else {
     a09.fillForm(q);
-    $('#asinCode').focus().select();
-    $('#result').empty();
-    $('<p/>').text('ASINコード、アソシエイトID、及びテンプレートURLを入力してフォームを送信してください。').appendTo('#result');
-    a09.showStatus('初期化が完了しました。');
+    $("#asinCode").focus().select();
+    $("#result").empty();
+    $("<p/>").text("ASINコード、アソシエイトID、及びテンプレートURLを入力してフォームを送信してください。").appendTo("#result");
+    a09.showStatus("初期化が完了しました。");
   }
 });
