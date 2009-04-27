@@ -37,7 +37,7 @@
       this.checkForm(q);
     },
 
-    // フォームのチェック
+    // フォームをチェック
     checkForm: function (q) {
       this.showStatus("フォームの入力内容をチェックしています･･･");
 
@@ -56,7 +56,7 @@
       }
     },
 
-    // ASINコードのチェック
+    // ASINコードをチェック
     checkASINCode: function (d) {
       if (d.match(/^[B\d][A-Z\d]{9}$/)) {
         return true;
@@ -65,7 +65,7 @@
       }
     },
 
-    // アソシエイトIDのチェック
+    // アソシエイトIDをチェック
     checkAssociateID: function (d) {
       if (d.match(/^[a-zA-Z\d]+-22$/)) {
         return true;
@@ -74,7 +74,7 @@
       }
     },
 
-    // テンプレートURLのチェック
+    // テンプレートURLをチェック
     checkTemplateURL: function (d) {
       if (d.match(/^http:\/\/.+/)) {
         return true;
@@ -83,7 +83,7 @@
       }
     },
 
-    // テンプレートのロード
+    // テンプレートをロード
     loadTemplate: function (q) {
       this.showStatus("テンプレートをロードしています･･･");
 
@@ -125,7 +125,7 @@
         } else {
           var item = res.Items.Item;
 
-          // 結果表示領域のリセット
+          // 結果表示領域をリセット
           $("#result").empty();
 
           // アサマシプレビュー
@@ -163,22 +163,22 @@
             ].join("")
           }).text("Asamashi09!")).appendTo("#result");
 
-          // コードにフォーカスを移す
+          // コードにフォーカスを移動
           $("#code").focus();
 
-          // 検索完了の通知
+          // 検索完了を通知
           self.showStatus("検索が完了しました。");
         }
       });
     },
 
-    // 状態の表示
+    // ステータスを表示
     showStatus: function (msg) {
       $("#message").empty();
       $("<p/>").addClass("status").text(msg).appendTo("#message");
     },
 
-    // エラー表示
+    // エラーを表示
     showError: function (msg) {
       $("#message").empty();
       $("<p/>").addClass("error").text(msg).appendTo("#message");
