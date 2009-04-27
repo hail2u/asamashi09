@@ -37,12 +37,11 @@ p {
   margin: 13px 0 0 0;
 }
 
-#header {
-  margin: 65px 0 0 0;
-}
-
-#contents {
-  margin: 65px 0 0 0;
+#header,
+#contents,
+#footer {
+  margin: 65px auto;
+  width: 640px;
 }
 
 #contents #message {
@@ -81,7 +80,8 @@ p {
 
 #contents form table tr td input {
   padding: 3px;
-  width: 510px;
+  border: 1px solid #cccccc;
+  width: 502px;
   font-family: 'Lucida Grande', 'Lucida Sans', sans-serif;
 }
 
@@ -98,13 +98,13 @@ p {
 
 #contents #result #preview {
   margin: 13px 0 0 0;
-  padding: 13px;
   border: 1px solid #cccccc;
-  width: 622px;
+  width: 638px;
   background-color: #eeeeee;
 }
 
 #contents #result #preview .asamashi {
+  margin: 13px;
   overflow: hidden;
 }
 
@@ -132,14 +132,8 @@ p {
 }
 
 #contents #result p textarea {
-  width: 646px;
+  margin: 0;
+  border: 1px solid #cccccc;
+  width: 638px;
   font-family: Consolas, Monaco, monospace;
-}
-
-#about {
-  margin: 65px 0 0 0;
-}
-
-#footer {
-  margin: 65px 0 0 0;
 }

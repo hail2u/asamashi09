@@ -175,14 +175,12 @@
 
     // ステータスを表示
     showStatus: function (msg) {
-      $("#message").empty();
-      $("<p/>").addClass("status").text(msg).appendTo("#message");
+      $("#message").html($("<p/>").addClass("status").append(msg));
     },
 
     // エラーを表示
     showError: function (msg) {
-      $("#message").empty();
-      $("<p/>").addClass("error").text(msg).appendTo("#message");
+      $("#message").html($("<p/>").addClass("error").append(msg));
     }
   };
 
