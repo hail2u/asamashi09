@@ -5,7 +5,7 @@
   // 設定
   ASIN_CODE    = "4774134902";
   ASSOCIATE_ID = "hail2unet-22";
-  TEMPLATE_URL = "http://hail2u.github.com/asamashi09/template.json";
+  TEMPLATE_URL = "http://hail2u.net/pub/template.xml";
 
   Asamashi09.prototype = {
     // 設定をコピー
@@ -91,14 +91,15 @@
 
       $.getJSON("http://query.yahooapis.com/v1/public/yql?callback=?", {
         format: "json",
-        q:      "select * from json where url=\"" + q.template_url + "\""
+        q:      "select data from xml where url=\"" + q.template_url + "\""
       }, function (data) {
         var res = data.query.results;
 
         if (!data || !res || !res.template) {
           self.showError("テンプレートがロードできませんでした。");
         } else {
-          self.doSearch(q, res.template);
+          var template = "{#template MAIN}" + res.template.data + "{#/template MAIN}";
+          self.doSearch(q, template);
         }
       });
     },
