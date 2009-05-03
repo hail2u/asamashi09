@@ -5,7 +5,7 @@
   // 設定
   ASIN_CODE    = "4774134902";
   ASSOCIATE_ID = "hail2unet-22";
-  TEMPLATE_URL = "http://hail2u.net/pub/template.xml";
+  TEMPLATE_URL = "http://hail2u.github.com/asamashi09/template.xml";
 
   Asamashi09.prototype = {
     // 設定をコピー
