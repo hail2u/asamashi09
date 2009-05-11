@@ -156,7 +156,7 @@
             href: [
               "javascript:(function(){location.href=\"",
               location.href.replace(location.hash, ""),
-              "#\"+location.href.replace(/^.*\\/dp\\/(.*?)\\/.*$/,\"$1\")+\":",
+              "#\"+location.href.replace(/^.*\\/([a-zA-Z0-9]{10})\\/.*$/,\"$1\")+\":",
               q.associate_id,
               ":",
               q.template_url,
