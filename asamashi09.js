@@ -154,9 +154,9 @@
           $("<h2/>").text("Bookmarklet").appendTo("#result");
           $("<p/>").append($("<a/>").attr({
             href: [
-              "javascript:(function(){location.href=\"",
+              "javascript:(function(){var asin=productTags?productTags.asin:location.href.replace(/^.*\\/([a-zA-Z0-9]{10})\\/.*$/,\"$1\");location.href=\"",
               location.href.replace(location.hash, ""),
-              "#\"+location.href.replace(/^.*\\/([a-zA-Z0-9]{10})\\/.*$/,\"$1\")+\":",
+              "#\"+asin+\":",
               q.associate_id,
               ":",
               q.template_url,
