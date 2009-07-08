@@ -181,7 +181,10 @@
 
     // ステータスを表示
     showStatus: function (msg) {
-      $("#message").html($("<p/>").addClass("status").append(msg));
+      $("#message").show().html($("<p/>").addClass("status").append(msg));
+      setTimeout(function () {
+        $("#message").fadeOut(1000);
+      }, 3000);
     },
 
     // エラーを表示
