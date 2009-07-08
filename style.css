@@ -1,8 +1,7 @@
 @charset "UTF-8";
 
 a {
-  color: #ff9900;
-  font-weight: bold;
+  color: #000000;
 }
 
 em {
@@ -15,14 +14,13 @@ body {
   padding: 0;
   color: #000000;
   background-color: #ffffff;
-  font-family: 'Lucida Grande', 'Lucida Sans', sans-serif;
+  font-family: "Verdana", sans-serif;
   letter-spacing: 1px;
 }
 
 h1 {
   margin: 39px 0 0 0;
   padding: 0;
-  color: #ff9900;
   font-size: 189%;
   font-weight: normal;
 }
@@ -30,7 +28,6 @@ h1 {
 h2 {
   margin: 39px 0 0 0;
   padding: 0;
-  color: #ff9900;
   font-size: 167%;
   font-weight: normal;
 }
@@ -38,7 +35,6 @@ h2 {
 h3 {
   margin: 39px 0 0 0;
   padding: 0;
-  color: #ff9900;
   font-size: 146.5%;
   font-weight: normal;
 }
@@ -89,6 +85,7 @@ pre {
 #contents form table tr th {
   padding-bottom: 13px;
   width: 130px;
+  font-weight: normal;
   text-align: left;
 }
 
@@ -103,13 +100,7 @@ pre {
   padding: 3px;
   border: 1px solid #cccccc;
   width: 502px;
-  font-family: 'Lucida Grande', 'Lucida Sans', sans-serif;
-}
-
-#contents form table tr td input:focus {
-  border: 1px solid #333333;
-  background-color: #ff9900;
-  outline: 2px solid #333333;
+  font-family: "Verdana", sans-serif;
 }
 
 #contents form p {
@@ -162,7 +153,7 @@ pre {
   margin: 0;
   border: 1px solid #cccccc;
   width: 638px;
-  font-family: Consolas, Monaco, monospace;
+  font-family: "Andale Mono", monospace;
 }
 
 #contents #usage {
