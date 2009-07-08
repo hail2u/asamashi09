@@ -91,7 +91,7 @@
 
       $.getJSON("http://query.yahooapis.com/v1/public/yql?callback=?", {
         format: "json",
-        q:      "select data from xml where url=\"" + q.template_url + "\""
+        q:      "select data from xml where url='" + q.template_url + "'"
       }, function (data) {
         var res = data.query.results;
 
@@ -109,22 +109,28 @@
       this.showStatus("指定したASINコードを検索しています･･･");
 
       var self = this;
-
-      $.getJSON("http://pipes.yahoo.com/pipes/pipe.run?_callback=?", {
-        _id:         "23c68494a774b6c65665eacebfaf971b",
-        _render:     "json",
-        asin:        q.asin_code,
-        tracking_id: q.associate_id
+      var url = "http://aap.hail2u.net/?" + $.param({
+        Service:        "AWSECommerceService",
+        Operation:      "ItemLookup",
+        ResponseGroup:  "Small,Images",
+        Version:        "2009-06-01",
+        AWSAccessKeyId: "08PWFCAAQ5TZJT30SKG2",
+        ItemId:         q.asin_code,
+        AssociateTag:   q.associate_id
+      });
+      $.getJSON("http://query.yahooapis.com/v1/public/yql?callback=?", {
+        format: "json",
+        q:      "select * from xml where url='" + url + "'"
       }, function (data) {
-        var res = data.value.items[0];
+        var items = data.query.results.ItemLookupResponse.Items;
 
-        if (res.Items.Request.Errors) {
+        if (items.Request.Errors) {
           self.showError([
-            res.Items.Request.Errors.Error.Code,
-            res.Items.Request.Errors.Error.Message
+            items.Request.Errors.Error.Code,
+            items.Request.Errors.Error.Message
           ].join(": "));
         } else {
-          var item = res.Items.Item;
+          var item = items.Item;
 
           // 結果表示領域をリセット
           $("#result").empty();
