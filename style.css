@@ -116,9 +116,9 @@ pre {
 
 #contents #result #preview {
   margin: 13px 0 0 0;
-  border: 1px solid #cccccc;
-  width: 638px;
-  background-color: #eeeeee;
+  border: 3px solid #cccccc;
+  width: 634px;
+  background-color: #ffffff;
 }
 
 #contents #result #preview .asamashi {
@@ -127,9 +127,9 @@ pre {
 }
 
 #contents #result #preview .asamashi .image {
-  margin-top: 0;
+  margin: 0;
   float: left;
-  width: auto;
+  width: 160px;
 }
 
 #contents #result #preview .asamashi .image a {
@@ -140,13 +140,27 @@ pre {
   border: 0;
 }
 
-#contents #result #preview .asamashi .title {
+#contents #result #preview .asamashi .detail {
   margin: 0 0 0 173px;
 }
 
-#contents #result #preview .asamashi .detail {
-  margin-left: 173px;
+#contents #result #preview .asamashi .detail .title {
+  margin: 0 0 13px 0;
+  overflow: hidden;
+  line-height: 1.25;
+  font-size: 146.5%;
+  white-space: nowrap;
+}
+
+#contents #result #preview .asamashi .detail ul {
+  margin: 0 0 13px 0;
   line-height: 1.75;
+}
+
+#contents #result #preview .asamashi .detail .powered {
+  margin: 0;
+  line-height: 1.25;
+  text-align: right;
 }
 
 #contents #result p textarea {
