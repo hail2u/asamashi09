@@ -17,7 +17,7 @@
 
     // フォームを埋める
     fillForm: function (q) {
-      this.showStatus("フォームを埋めています･･･");
+      this.showStatus("フォームを埋めています……");
 
       $("#asinCode").val(q.asin_code);
       $("#associateId").val(q.associate_id);
@@ -26,7 +26,7 @@
 
     // ハッシュをセット
     setHash: function(q) {
-      this.showStatus("ハッシュをセットしています･･･");
+      this.showStatus("ハッシュをセットしています……");
 
       location.hash = "#" + [
         q.asin_code,
@@ -39,7 +39,7 @@
 
     // フォームをチェック
     checkForm: function (q) {
-      this.showStatus("フォームの入力内容をチェックしています･･･");
+      this.showStatus("フォームの入力内容をチェックしています……");
 
       // それぞれ妥当なデータかどうかチェックする
       if (!q.asin_code || !this.checkASINCode(q.asin_code)) {
@@ -85,7 +85,7 @@
 
     // テンプレートをロード
     loadTemplate: function (q) {
-      this.showStatus("テンプレートをロードしています･･･");
+      this.showStatus("テンプレートをロードしています……");
 
       var self = this;
 
@@ -106,7 +106,7 @@
 
     // 検索を実行
     doSearch: function (q, template) {
-      this.showStatus("指定したASINコードを検索しています･･･");
+      this.showStatus("指定したASINコードを検索しています……");
 
       var self = this;
       var url = "http://aap.hail2u.net/?" + $.param({
