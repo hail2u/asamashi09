@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<template>
+<data><![CDATA[
+[{$T.DetailPageURL}:title={$T.ItemAttributes.Title}]
+]]></data>
+</template>

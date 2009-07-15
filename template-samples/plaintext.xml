@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<template>
+<data><![CDATA[
+タイトル: {$T.ItemAttributes.Title}
+URL: a:{$T.DetailPageURL}
+{#if $T.ItemAttributes.Actor}俳優: {$T.ItemAttributes.Actor}{#/if}
+{#if $T.ItemAttributes.Artist}アーティスト: {$T.ItemAttributes.Artist}{#/if}
+{#if $T.ItemAttributes.Author}著者: {$T.ItemAttributes.Author}{#/if}
+{#if $T.ItemAttributes.Creator}作者: {$T.ItemAttributes.Creator}{#/if}
+{#if $T.ItemAttributes.Director}監督: {$T.ItemAttributes.Director}{#/if}
+{#if $T.ItemAttributes.Manufacturer}メーカー: {$T.ItemAttributes.Manufacturer}{#/if}
+カテゴリ: {$T.ItemAttributes.ProductGroup}
+ASIN: {$T.ASIN}
+]]></data>
+</template>

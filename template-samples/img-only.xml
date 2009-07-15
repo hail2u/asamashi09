@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<template>
+<data><![CDATA[
+<p class="image_fr"><a href="{$T.DetailPageURL}"><img alt="{$T.ItemAttributes.Title}" src="{$T.MediumImage.URL}" width="{$T.MediumImage.Width.content}" height="{$T.MediumImage.Height.content}"></a></p>
+]]></data>
+</template>
