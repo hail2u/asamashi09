@@ -15,7 +15,6 @@ body {
   color: #000000;
   background-color: #ffffff;
   font-family: "Verdana", sans-serif;
-  letter-spacing: 1px;
 }
 
 h1 {
@@ -49,6 +48,7 @@ pre {
   margin: 13px 0 0 0;
   line-height: 1.5;
   overflow: auto;
+  word-break: break-all;
 }
 
 #header {
