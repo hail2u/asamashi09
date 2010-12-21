@@ -17,7 +17,7 @@
 
     // フォームを埋める
     fillForm: function (q) {
-      this.showStatus("フォームを埋めています……");
+      this.updateStatus("フォームを埋めています……");
 
       $("#asinCode").val(q.asin_code);
       $("#associateId").val(q.associate_id);
@@ -26,7 +26,7 @@
 
     // ハッシュをセット
     setHash: function(q) {
-      this.showStatus("ハッシュをセットしています……");
+      this.updateStatus("ハッシュをセットしています……");
 
       location.hash = "#" + [
         q.asin_code,
@@ -39,7 +39,7 @@
 
     // フォームをチェック
     checkForm: function (q) {
-      this.showStatus("フォームの入力内容をチェックしています……");
+      this.updateStatus("フォームの入力内容をチェックしています……");
 
       // それぞれ妥当なデータかどうかチェックする
       if (!q.asin_code || !this.checkASINCode(q.asin_code)) {
@@ -85,7 +85,7 @@
 
     // テンプレートをロード
     loadTemplate: function (q) {
-      this.showStatus("テンプレートをロードしています……");
+      this.updateStatus("テンプレートをロードしています……");
 
       var self = this;
 
@@ -106,7 +106,7 @@
 
     // 検索を実行
     doSearch: function (q, template) {
-      this.showStatus("指定したASINコードを検索しています……");
+      this.updateStatus("指定したASINコードを検索しています……");
 
       var self = this;
       var url = "http://aap.hail2u.net/?" + $.param({
@@ -174,17 +174,14 @@
           $("#code").focus();
 
           // 検索完了を通知
-          self.showStatus("検索が完了しました。");
+          self.updateStatus("検索が完了しました。");
         }
       });
     },
 
-    // ステータスを表示
-    showStatus: function (msg) {
+    // ステータスを更新
+    updateStatus: function (msg) {
       $("#message").show().html($("<p/>").addClass("status").append(msg));
-      setTimeout(function () {
-        $("#message").fadeOut(1000);
-      }, 3000);
     },
 
     // エラーを表示
@@ -224,6 +221,6 @@ $(function () {
     $("#asinCode").focus().select();
     $("#result").empty();
     $("<p/>").text("ASINコード、アソシエイトID、及びテンプレートURLを入力してフォームを送信してください。").appendTo("#result");
-    a09.showStatus("初期化が完了しました。");
+    a09.updateStatus("初期化が完了しました。");
   }
 });
