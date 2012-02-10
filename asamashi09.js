@@ -113,7 +113,7 @@
         Service:        "AWSECommerceService",
         Operation:      "ItemLookup",
         ResponseGroup:  "Small,Images",
-        Version:        "2009-06-01",
+        Version:        "2011-08-01",
         AWSAccessKeyId: "08PWFCAAQ5TZJT30SKG2",
         ItemId:         q.asin_code,
         AssociateTag:   q.associate_id
