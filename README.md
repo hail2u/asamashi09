@@ -46,4 +46,4 @@ Template
 LICENSE
 -------
 
-http://hail2u.mit-license.org/2009
+MIT: http://hail2u.mit-license.org/2009
