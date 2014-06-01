@@ -109,7 +109,7 @@
       this.updateStatus("指定したASINコードを検索しています……");
 
       var self = this;
-      var url = "http://aap.hail2u.net/?" + $.param({
+      var url = "http://rpaproxy.tdiary.org/rpaproxy/jp/?" + $.param({
         Service:        "AWSECommerceService",
         Operation:      "ItemLookup",
         ResponseGroup:  "Small,Images",
